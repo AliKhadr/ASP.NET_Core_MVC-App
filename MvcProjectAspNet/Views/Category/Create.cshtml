@@ -16,7 +16,7 @@
             <input asp-for="DisplayOrder" class="form-control" />
             <span asp-validation-for="DisplayOrder" class="text-danger"></span>
         </div>
-
+        <div asp-validation-summary="ModelOnly"></div>
         <div class="row justify-content-center">
             <div class="col-6 col-md-3">
                 <button type="submit" class="btn btn-primary form-control">Create</button>
@@ -29,3 +29,7 @@
         
     </div>
 </form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
