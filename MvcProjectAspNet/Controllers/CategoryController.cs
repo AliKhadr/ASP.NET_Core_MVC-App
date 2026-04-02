@@ -43,7 +43,7 @@ namespace MvcProjectAspNet.Controllers
 
         public IActionResult Edit(int? id)
         {
-            if(id == null || id <= 0)
+            if (id == null || id <= 0)
             {
                 return NotFound();
             }
@@ -55,5 +55,49 @@ namespace MvcProjectAspNet.Controllers
             }
             return View(categoryFromDb);
         }
+
+        [HttpPost]
+        public IActionResult Edit(Category category)
+        {
+            if (category.Name == category.DisplayOrder.ToString())
+            {
+                ModelState.AddModelError("Name", "The Display Order cannot exactly match the Name.");
+            }
+            if (ModelState.IsValid)
+            {
+                _db.Categories.Update(category);
+                _db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View();
+        }
+
+        public IActionResult Delete(int? id)
+        {
+            if (id == null || id <= 0)
+            {
+                return NotFound();
+            }
+            Category? categoryFromDb = _db.Categories.Find(id);
+            if (categoryFromDb == null)
+            {
+                return NotFound();
+            }
+            return View(categoryFromDb);
+        }
+
+        [HttpPost, ActionName("Delete")]
+        public IActionResult DeletePOST(int id)
+        {
+            Category? categoryFromDb = _db.Categories.Find(id);
+            if (categoryFromDb == null)
+            {
+                return NotFound();
+            }
+            _db.Categories.Remove(categoryFromDb);
+            _db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
     }
 }
