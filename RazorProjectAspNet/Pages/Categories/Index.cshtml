@@ -1,7 +1,7 @@
-﻿@model List<Category>
-@{
-    ViewData["Title"] = "Categories";
-}
+﻿@page
+@model RazorProjectAspNet.Pages.Categories.IndexModel
+
+<h1>Category List</h1>
 
 <div class="container">
     <div class="row pt-4 pb-3">
@@ -11,7 +11,7 @@
             </h2>
         </div>
         <div class="col-6 text-end">
-            <a asp-controller="Category" asp-action="Create" class="btn btn-primary">
+            <a asp-page="Categories/Create" class="btn btn-primary">
                 <i class="bi bi-plus-circle me-2"></i>Create New Category
             </a>
         </div>
@@ -26,17 +26,17 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (var category in Model.OrderBy(u => u.DisplayOrder))
+            @foreach (var category in Model.CategoryList.OrderBy(u => u.DisplayOrder))
             {
                 <tr>
                     <td>@category.Name</td>
                     <td>@category.DisplayOrder</td>
                     <td class="text-center">
                         <div class="w-75 btn-group" role="group">
-                            <a asp-controller="Category" asp-action="Edit" asp-route-id="@category.Id" class="btn btn-primary btn-sm mx-2">
+                            <a asp-page="/Categories/Edit" asp-route-id="@category.Id" class="btn btn-primary btn-sm mx-2">
                                 <i class="bi bi-pencil-square me-2"></i>Edit
                             </a>
-                            <a asp-controller="Category" asp-action="Delete" asp-route-id="@category.Id" class="btn btn-danger btn-sm mx-2">
+                            <a asp-page="/Categories/Delete" asp-route-id="@category.Id" class="btn btn-danger btn-sm mx-2">
                                 <i class="bi bi-trash-fill me-2"></i>Delete
                             </a>
                         </div>
@@ -46,6 +46,4 @@
         </tbody>
     </table>
 </div>
-
-
-
+    
